@@ -24,6 +24,7 @@ ShipperOS explores how to make these factors explicit so a user can compare opti
 ## Public demonstrations
 
 - `examples/shipment-review.html` is a dependency-free interactive UI for editing synthetic shipment inputs and reviewing calculated volume, illustrative dimensional weight, and the largest or tied exposure drivers. It performs calculations in the browser and does not transmit input data.
+- `examples/skidbuilder-demo.html` is a dependency-free packing-lab prototype. It accepts synthetic carton and pallet constraints, compares three packing heuristics, and displays a per-skid summary. Its simplified area/layer logic is for product exploration only and is not a validated 3D packing solver or carrier-ready pallet plan.
 - `examples/economic-weight.js` compares simplified weight drivers and reports ties.
 - `examples/input-normalization.js` demonstrates parsing and normalizing dimension, weight, and quantity inputs.
 

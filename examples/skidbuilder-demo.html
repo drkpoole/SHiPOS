@@ -100,19 +100,16 @@ if(gross>c.weight)continue;
 if(!box.stackable && pallet.boxes.length>0)continue;
 if(pallet.boxes.some(b=>!b.stackable))continue;
 const baseArea=c.l*c.w;
-const usedArea=pallet.boxes.reduce((sum,b)=>sum+b.l*b.w,0);
-const fitArea=box.l*box.w<=baseArea-usedArea+0.0001;
 const fitsNormal=box.l<=c.l&&box.w<=c.w;
 const fitsRotated=box.w<=c.l&&box.l<=c.w;
-if(!(fitsNormal||fitsRotated)||!fitArea)continue;
-const layerHeight=box.h;
-const currentHeight=pallet.boxes.length?pallet.layerHeight:0;
-const sameLayer=pallet.boxes.length>0&&Math.abs(currentHeight-box.h)<0.001&&pallet.layerArea+box.l*box.w<=baseArea;
-const nextHeight=sameLayer?pallet.height:currentHeight+box.h;
+if(!(fitsNormal||fitsRotated))continue;
+const currentLayerHeight=pallet.layerHeight;
+const sameLayer=pallet.boxes.length>0&&Math.abs(currentLayerHeight-box.h)<0.001&&pallet.layerArea+box.l*box.w<=baseArea;
+const nextHeight=sameLayer?pallet.height:pallet.height+box.h;
 if(nextHeight>maxStackHeight)continue;
-if(!sameLayer&&pallet.boxes.length&&pallet.boxes.some(b=>!b.stackable))continue;
+if(!sameLayer&&pallet.boxes.length&&(!box.stackable||pallet.boxes.some(b=>!b.stackable)))continue;
 pallet.boxes.push(box);pallet.net+=box.weight;pallet.height=nextHeight;
-if(sameLayer){pallet.layerArea+=box.l*box.w;}else{pallet.layerHeight=layerHeight;pallet.layerArea=box.l*box.w;}
+if(sameLayer){pallet.layerArea+=box.l*box.w;}else{pallet.layerHeight=box.h;pallet.layerArea=box.l*box.w;}
 placed=true;break;
 }
 if(!placed){

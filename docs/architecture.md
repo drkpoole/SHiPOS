@@ -21,16 +21,15 @@ ShipperOS explores how to make these factors explicit so a user can compare opti
 - **Validation before automation:** recommendations are not contractual quotes or carrier guarantees.
 - **Reconciliation as a product requirement:** quoted-versus-invoiced differences should be traceable to evidence and explicit reason codes.
 
-## Public examples
+## Public demonstrations
 
-The examples folder contains two small, standalone JavaScript demonstrations:
+- `examples/shipment-review.html` is a dependency-free interactive UI for editing synthetic shipment inputs and reviewing calculated volume, illustrative dimensional weight, and the largest or tied exposure drivers. It performs calculations in the browser and does not transmit input data.
+- `examples/economic-weight.js` compares simplified weight drivers and reports ties.
+- `examples/input-normalization.js` demonstrates parsing and normalizing dimension, weight, and quantity inputs.
 
-- `economic-weight.js` compares simplified weight drivers and reports ties.
-- `input-normalization.js` demonstrates parsing and normalizing dimension, weight, and quantity inputs.
+The JavaScript code examples have automated tests. The UI demo is standalone HTML and can be opened locally in a modern browser. All values and the dimensional factor in the UI are illustrative; the page does not implement a carrier tariff or the production ShipperOS formula.
 
-Both examples have tests and are intentionally simplified. They do not disclose the production formula, carrier-specific parameters, private rate tables, or customer-derived calibration.
-
-Run the example tests from the repository root with:
+Run the automated code-example tests from the repository root with:
 
 ~~~bash
 npm test

@@ -4,61 +4,53 @@ An independently developed freight-technology project exploring how less-than-tr
 
 **Project focus:** translating logistics workflows into software that helps explain cost drivers and make operational decisions more transparent.
 
-> **Portfolio note:** This is a public portfolio landing page. The development codebase lives separately. This repository intentionally excludes production customer records, invoice exports, private carrier agreements, credentials, and shipment-level business data.
+> **Portfolio scope:** This is a sanitized public companion repository, not the full application. It contains a small standalone code example and tests. It intentionally excludes production customer records, invoice exports, private carrier agreements, credentials, shipment-level business data, and the original development repository's commit history.
 
 ## What the project explores
 
 - **Freight pricing and dimensional exposure:** compare actual weight, dimensional weight, linear-foot exposure, and shipment characteristics.
 - **SkidBuilder / packing optimization:** model packaging constraints such as box rotation, stackability, layer limits, and multi-skid trade-offs.
 - **Decision support:** organize carrier and shipment considerations so they can be explained and reviewed.
-- **Workflow feedback:** learn from shipment outcomes while distinguishing observed outcomes from recommendations.
+- **Outcome feedback:** connect operational outcomes, including invoice results, to earlier decisions for review.
 - **Operational product design:** connect business rules, UI workflows, and testable software behavior.
+
+## Public example
+
+The `examples/` folder contains a standalone JavaScript example showing how a simplified economic-weight exposure rule can identify the largest of several weight drivers. It also includes tests for the main behavior, tied drivers, invalid inputs, and optional inputs.
+
+This is an illustrative teaching example—not the production ShipperOS formula, not a carrier tariff, and not a guarantee of billable weight.
+
+### Run tests
+
+Requires Node.js 18 or newer.
+
+~~~bash
+npm test
+~~~
+
+Or run Node's test runner directly:
+
+~~~bash
+node --test
+~~~
 
 ## Technology
 
-The wider project has used React, JavaScript, Vite, Vitest, React Testing Library, and Python components. Public code should be added selectively after review for data sensitivity and reproducibility.
+The wider development project has used React, Vite, Vitest, React Testing Library, and Python components. This companion repo intentionally contains only a small isolated example so a reviewer can inspect its behavior without installing the full application stack.
 
-## Domain concepts
+## Architecture overview
 
-### Dimensional weight
-
-Shipment dimensions can materially affect billable weight. A common volume-based calculation is:
-
-`dimensional weight = (length × width × height ÷ divisor) × conversion factor`
-
-The divisor, density assumptions, rounding, and carrier-specific rules vary. Demonstration rates and thresholds should be labelled illustrative, not presented as carrier contracts.
-
-### True Economic Weight
-
-The project explores a decision-support concept that considers multiple economic drivers—not just scale weight—including dimensional weight, linear-foot exposure, packaging geometry, and potential re-handling or recube penalties.
-
-The exact production formula and carrier-specific tuning are intentionally not published here.
-
-### SkidBuilder
-
-The packing component explores how carton orientation, layer consistency, stackability, weight limits, and skid count can affect estimated space usage and cost exposure.
-
-## Engineering approach
-
-- Decompose domain-specific rules into testable components.
-- Keep assumptions visible instead of presenting estimates as guaranteed carrier quotes.
-- Use synthetic examples for public demonstrations.
-- Treat auditability and quoted-versus-invoiced charge reconciliation as important product requirements.
-- Prefer a narrow, verifiable MVP over claims of a complete transportation-management platform.
-
-## Current limitations
-
-This is an evolving independent project, not a claim of a fully production-ready commercial system. Live carrier pricing, contractual tariff coverage, and end-to-end shipment-to-invoice reconciliation require additional integration, validation, and testing before operational use.
+See [docs/architecture.md](docs/architecture.md) for the conceptual rate-engine, decision-support, SkidBuilder, and outcome-feedback layers, along with design principles and current scope limitations.
 
 ## Development repository
 
 - [ShipperOS development repository](https://github.com/SouthwellOS/ShipperOS)
 
-Review the development repository's setup instructions before running it. Keep environment files and local data free of credentials and confidential records.
+The development repository is separate and may contain a broader, evolving application. Review its setup instructions and data-handling requirements independently.
 
 ## Data and confidentiality
 
-All sample names, contacts, addresses, identifiers, and rates added to this portfolio should be synthetic. Do not add customer invoices, PRO/BOL numbers, shipment exports, lane-level commercial evidence, private tariffs, or secrets.
+All examples in this portfolio should use synthetic names, contacts, addresses, identifiers, and rates. Do not add customer invoices, PRO/BOL numbers, shipment exports, lane-level commercial evidence, private tariffs, credentials, or other confidential material.
 
 ## About
 

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShipperOS | Shipment Review Demo</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #182230; background: #f4f7fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { background: #13233b; color: #fff; padding: 28px 20px; }
+    header, main { width: 100%; }
+    .wrap { max-width: 1040px; margin: 0 auto; }
+    .eyebrow { margin: 0 0 8px; color: #b8d2ff; font-size: .78rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(1.7rem, 4vw, 2.5rem); letter-spacing: -.035em; }
+    .subtitle { margin: 10px 0 0; max-width: 700px; color: #d8e2f0; line-height: 1.55; }
+    main { max-width: 1040px; margin: 22px auto; padding: 0 20px 32px; }
+    .notice { padding: 12px 14px; border: 1px solid #e7c77b; border-radius: 12px; background: #fff8e5; color: #62470c; line-height: 1.5; font-size: .92rem; margin-bottom: 18px; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 18px; align-items: start; }
+    .panel { background: #fff; border: 1px solid #e0e6ef; border-radius: 16px; padding: 20px; box-shadow: 0 6px 22px rgb(24 34 48 / 4%); }
+    h2 { margin: 0 0 6px; font-size: 1.1rem; }
+    .helper { margin: 0 0 18px; color: #657286; font-size: .9rem; line-height: 1.5; }
+    .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    label { display: block; font-size: .88rem; font-weight: 650; color: #344054; }
+    input { display: block; width: 100%; margin-top: 6px; padding: 10px 11px; border: 1px solid #cbd5e1; border-radius: 9px; font: inherit; color: #182230; background: #fff; }
+    input:focus { outline: 3px solid #c8dcff; border-color: #356fcb; }
+    .unit { color: #667085; font-size: .78rem; font-weight: 500; }
+    .results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
+    .metric { border: 1px solid #e0e6ef; border-radius: 12px; padding: 13px; min-width: 0; }
+    .metric span { display: block; color: #657286; font-size: .8rem; line-height: 1.4; }
+    .metric strong { display: block; margin-top: 5px; font-size: 1.35rem; letter-spacing: -.025em; overflow-wrap: anywhere; }
+    .decision { padding: 16px; border-radius: 12px; background: #edf5ff; border: 1px solid #c9defc; }
+    .decision .label { color: #315a8d; font-size: .78rem; font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
+    .decision h3 { margin: 6px 0; font-size: 1.25rem; }
+    .decision p { margin: 0; color: #344054; line-height: 1.55; }
+    .bar-row { margin-top: 13px; }
+    .bar-label { display: flex; justify-content: space-between; gap: 12px; color: #475467; font-size: .85rem; margin-bottom: 5px; }
+    .track { height: 8px; background: #e9edf4; border-radius: 99px; overflow: hidden; }
+    .bar { height: 100%; width: 0; background: #3974c6; border-radius: 99px; transition: width .15s ease; }
+    .error { color: #b42318; min-height: 1.4em; margin: 12px 0 0; font-size: .88rem; }
+    footer { color: #657286; font-size: .85rem; line-height: 1.55; margin: 18px 2px 0; }
+    @media (max-width: 720px) { .layout { grid-template-columns: 1fr; } .fields { gap: 12px; } }
+    @media (max-width: 420px) { .fields, .results { grid-template-columns: 1fr; } main { padding: 0 12px 24px; } .panel { padding: 16px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <p class="eyebrow">ShipperOS · Interactive portfolio example</p>
+      <h1>Shipment exposure review</h1>
+      <p class="subtitle">Explore how shipment dimensions and weight inputs can change an LTL planning conversation. Adjust the sample values to see the calculations and review signal update.</p>
+    </div>
+  </header>
+  <main>
+    <div class="notice"><strong>Illustrative only:</strong> this demo uses synthetic values and a user-editable dimensional factor. It is not a carrier quote, tariff calculation, production ShipperOS logic, or a prediction of the final invoice.</div>
+    <div class="layout">
+      <section class="panel" aria-labelledby="inputs-title">
+        <h2 id="inputs-title">Shipment inputs</h2>
+        <p class="helper">All sample inputs can be edited. Dimensions are in inches; weight values are in pounds.</p>
+        <div class="fields">
+          <label for="actual">Actual weight <span class="unit">lb</span><input id="actual" type="number" min="0" step="any" value="400" inputmode="decimal"></label>
+          <label for="linear">Linear-foot equivalent <span class="unit">lb, illustrative</span><input id="linear" type="number" min="0" step="any" value="600" inputmode="decimal"></label>
+          <label for="length">Length <span class="unit">in</span><input id="length" type="number" min="0" step="any" value="48" inputmode="decimal"></label>
+          <label for="width">Width <span class="unit">in</span><input id="width" type="number" min="0" step="any" value="40" inputmode="decimal"></label>
+          <label for="height">Height <span class="unit">in</span><input id="height" type="number" min="0" step="any" value="48" inputmode="decimal"></label>
+          <label for="factor">Dimensional factor <span class="unit">lb / cu ft</span><input id="factor" type="number" min="0" step="any" value="10" inputmode="decimal"></label>
+        </div>
+        <p id="error" class="error" role="alert" aria-live="polite"></p>
+      </section>
+      <section class="panel" aria-labelledby="result-title" aria-live="polite">
+        <h2 id="result-title">Review summary</h2>
+        <p class="helper">The comparison below is a transparent planning aid, not a billable-weight determination.</p>
+        <div class="results">
+          <div class="metric"><span>Shipment volume</span><strong id="volume">53.33 ft³</strong></div>
+          <div class="metric"><span>Illustrative dimensional weight</span><strong id="dim-weight">533.3 lb</strong></div>
+        </div>
+        <div class="decision">
+          <div class="label">Largest entered exposure</div>
+          <h3 id="decision-title">Linear-foot equivalent</h3>
+          <p id="decision-copy">At 600 lb, the entered linear-foot equivalent is the largest of the three comparison values. Confirm the applicable carrier rules before acting.</p>
+        </div>
+        <div id="bars">
+          <div class="bar-row"><div class="bar-label"><span>Actual weight</span><strong id="actual-value">400 lb</strong></div><div class="track"><div class="bar" id="actual-bar"></div></div></div>
+          <div class="bar-row"><div class="bar-label"><span>Dimensional weight</span><strong id="dim-value">533.3 lb</strong></div><div class="track"><div class="bar" id="dim-bar"></div></div></div>
+          <div class="bar-row"><div class="bar-label"><span>Linear-foot equivalent</span><strong id="linear-value">600 lb</strong></div><div class="track"><div class="bar" id="linear-bar"></div></div></div>
+        </div>
+      </section>
+    </div>
+    <footer>Design intent: make assumptions visible, validate inputs, compare decision drivers, and give the operator a clear next question. This static browser demo performs calculations locally and sends no data anywhere.</footer>
+  </main>
+  <script>
+    const ids = ["actual", "linear", "length", "width", "height", "factor"];
+    const fields = Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
+    const byId = id => document.getElementById(id);
+    const format = value => new Intl.NumberFormat("en-CA", { maximumFractionDigits: 2 }).format(value);
+    function update() {
+      const values = Object.fromEntries(ids.map(id => [id, Number(fields[id].value)]));
+      const invalid = ids.filter(id => fields[id].value.trim() === "" || !Number.isFinite(values[id]) || values[id] < 0);
+      const error = byId("error");
+      if (invalid.length) {
+        error.textContent = "Enter valid, non-negative numbers for all fields. Zero is accepted for weight values, but dimensions and the factor must be greater than zero.";
+        ["volume", "dim-weight", "decision-title", "decision-copy", "actual-value", "dim-value", "linear-value"].forEach(id => byId(id).textContent = "—");
+        ["actual-bar", "dim-bar", "linear-bar"].forEach(id => byId(id).style.width = "0%");
+        return;
+      }
+      if (values.length <= 0 || values.width <= 0 || values.height <= 0 || values.factor <= 0) {
+        error.textContent = "Length, width, height, and dimensional factor must be greater than zero.";
+        ["volume", "dim-weight", "decision-title", "decision-copy", "actual-value", "dim-value", "linear-value"].forEach(id => byId(id).textContent = "—");
+        ["actual-bar", "dim-bar", "linear-bar"].forEach(id => byId(id).style.width = "0%");
+        return;
+      }
+      error.textContent = "";
+      const volume = values.length * values.width * values.height / 1728;
+      const dimWeight = volume * values.factor;
+      const drivers = [
+        { name: "Actual weight", value: values.actual },
+        { name: "Dimensional weight", value: dimWeight },
+        { name: "Linear-foot equivalent", value: values.linear }
+      ];
+      const maxValue = Math.max(...drivers.map(d => d.value));
+      const leaders = drivers.filter(d => Math.abs(d.value - maxValue) < 1e-9);
+      byId("volume").textContent = `${format(volume)} ft³`;
+      byId("dim-weight").textContent = `${format(dimWeight)} lb`;
+      byId("actual-value").textContent = `${format(values.actual)} lb`;
+      byId("dim-value").textContent = `${format(dimWeight)} lb`;
+      byId("linear-value").textContent = `${format(values.linear)} lb`;
+      byId("decision-title").textContent = leaders.length > 1 ? "Tied exposure drivers" : leaders[0].name;
+      byId("decision-copy").textContent = leaders.length > 1
+        ? `${leaders.map(d => d.name.toLowerCase()).join(" and ")} are tied at ${format(maxValue)} lb. Confirm which contractual or operational rule applies before acting.`
+        : `At ${format(maxValue)} lb, ${leaders[0].name.toLowerCase()} is the largest of the three comparison values. Confirm the applicable carrier rules before acting.`;
+      const scale = maxValue > 0 ? maxValue : 1;
+      [["actual-bar", values.actual], ["dim-bar", dimWeight], ["linear-bar", values.linear]].forEach(([id, value]) => {
+        byId(id).style.width = `${Math.max(0, Math.min(100, value / scale * 100))}%`;
+      });
+    }
+    ids.forEach(id => fields[id].addEventListener("input", update));
+    update();
+  </script>
+</body>
+</html>

@@ -4,7 +4,7 @@ An independently developed freight-technology project exploring how less-than-tr
 
 **Project focus:** translating logistics workflows into software that helps explain cost drivers and make operational decisions more transparent.
 
-> **Portfolio scope:** This is a sanitized public companion repository, not the full application. It contains a small standalone code example and tests. It intentionally excludes production customer records, invoice exports, private carrier agreements, credentials, shipment-level business data, and the original development repository's commit history.
+> **Portfolio scope:** This is a sanitized public companion repository, not the full application. It contains isolated code examples, tests, and conceptual architecture documentation. It intentionally excludes production customer records, invoice exports, private carrier agreements, credentials, shipment-level business data, and the original development repository's commit history.
 
 ## What the project explores
 
@@ -12,15 +12,16 @@ An independently developed freight-technology project exploring how less-than-tr
 - **SkidBuilder / packing optimization:** model packaging constraints such as box rotation, stackability, layer limits, and multi-skid trade-offs.
 - **Decision support:** organize carrier and shipment considerations so they can be explained and reviewed.
 - **Outcome feedback:** connect operational outcomes, including invoice results, to earlier decisions for review.
-- **Operational product design:** connect business rules, UI workflows, and testable software behavior.
+- **Operational product design:** connect business rules, UI workflows, input validation, and testable software behavior.
 
-## Public example
+## Public examples
 
-The `examples/` folder contains a standalone JavaScript example showing how a simplified economic-weight exposure rule can identify the largest of several weight drivers. It also includes tests for the main behavior, tied drivers, invalid inputs, and optional inputs.
+- [economic-weight.js](examples/economic-weight.js) — a simplified example that selects the largest of several weight drivers and reports ties.
+- [input-normalization.js](examples/input-normalization.js) — a standalone JavaScript adaptation of input-normalization behavior from the development project. It parses dimensions and weights with supported units, converts them to consistent units, and handles invalid values and blank quantities.
 
-This is an illustrative teaching example—not the production ShipperOS formula, not a carrier tariff, and not a guarantee of billable weight.
+The examples are deliberately limited and are not the production ShipperOS formula, a carrier tariff, or a guarantee of billable weight. They contain no customer records, private carrier calibration, or shipment-level commercial evidence.
 
-### Run tests
+## Run tests
 
 Requires Node.js 18 or newer.
 
@@ -34,9 +35,11 @@ Or run Node's test runner directly:
 node --test
 ~~~
 
+The test suite covers weight-driver selection, tied drivers, input validation, dimensional-unit conversion, weight-unit conversion, and quantity defaults/validation.
+
 ## Technology
 
-The wider development project has used React, Vite, Vitest, React Testing Library, and Python components. This companion repo intentionally contains only a small isolated example so a reviewer can inspect its behavior without installing the full application stack.
+The wider development project has used React, Vite, Vitest, React Testing Library, and Python components. This companion repo intentionally contains small isolated examples so a reviewer can inspect and run them without installing the full application stack.
 
 ## Architecture overview
 
@@ -46,11 +49,11 @@ See [docs/architecture.md](docs/architecture.md) for the conceptual rate-engine,
 
 - [ShipperOS development repository](https://github.com/SouthwellOS/ShipperOS)
 
-The development repository is separate and may contain a broader, evolving application. Review its setup instructions and data-handling requirements independently.
+The development repository is separate and may contain a broader, evolving application. Review its setup instructions and data-handling requirements independently; this portfolio does not imply that the full development repository has been cleared for public release.
 
 ## Data and confidentiality
 
-All examples in this portfolio should use synthetic names, contacts, addresses, identifiers, and rates. Do not add customer invoices, PRO/BOL numbers, shipment exports, lane-level commercial evidence, private tariffs, credentials, or other confidential material.
+All portfolio examples should use synthetic names, contacts, addresses, identifiers, and rates. Do not add customer invoices, PRO/BOL numbers, shipment exports, lane-level commercial evidence, private tariffs, credentials, or other confidential material.
 
 ## About
 

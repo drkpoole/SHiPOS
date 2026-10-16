@@ -21,14 +21,19 @@ ShipperOS explores how to make these factors explicit so a user can compare opti
 - **Validation before automation:** recommendations are not contractual quotes or carrier guarantees.
 - **Reconciliation as a product requirement:** quoted-versus-invoiced differences should be traceable to evidence and explicit reason codes.
 
-## Public example
+## Public examples
 
-The examples folder contains a small, standalone JavaScript demonstration of a maximum-weight exposure rule and its tests. It is intentionally simplified and does not disclose the production formula, carrier-specific parameters, private rate tables, or customer-derived calibration.
+The examples folder contains two small, standalone JavaScript demonstrations:
+
+- `economic-weight.js` compares simplified weight drivers and reports ties.
+- `input-normalization.js` demonstrates parsing and normalizing dimension, weight, and quantity inputs.
+
+Both examples have tests and are intentionally simplified. They do not disclose the production formula, carrier-specific parameters, private rate tables, or customer-derived calibration.
 
 Run the example tests from the repository root with:
 
 ~~~bash
-node --test
+npm test
 ~~~
 
 ## Scope and limitations

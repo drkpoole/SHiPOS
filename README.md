@@ -1,4 +1,4 @@
-# ShipperOS — LTL Freight Intelligence Portfolio
+# SHiPOS — LTL Freight Intelligence Portfolio
 
 An independently developed freight-technology project exploring how less-than-truckload (LTL) shipment data can support better pricing, packaging, carrier selection, and audit decisions.
 

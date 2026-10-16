@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SHiPOS freight technology portfolio demos">
+  <title>SHiPOS | Freight Technology Portfolio</title>
+  <style>
+    :root { color-scheme: light; --ink: #17212b; --muted: #5a6875; --line: #dce3e8; --paper: #f5f7f9; --accent: #145c74; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif; }
+    main { width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: 56px 0; }
+    .eyebrow { color: var(--accent); font-size: .78rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { max-width: 700px; margin: 10px 0 16px; font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.08; letter-spacing: -.04em; }
+    .intro { max-width: 680px; color: var(--muted); font-size: 1.1rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 32px 0; }
+    article { background: white; border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+    h2 { margin: 0 0 8px; font-size: 1.2rem; }
+    article p { color: var(--muted); min-height: 72px; }
+    a { color: var(--accent); font-weight: 700; }
+    .link { display: inline-block; border: 1px solid var(--accent); border-radius: 8px; padding: 9px 13px; text-decoration: none; }
+    .note { border-top: 1px solid var(--line); margin-top: 32px; padding-top: 20px; color: var(--muted); font-size: .92rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Independent project · Freight technology</div>
+    <h1>Better freight decisions start with better freight intelligence.</h1>
+    <p class="intro">SHiPOS explores how shipment dimensions, weight exposure, packaging constraints, and decision-support workflows can be translated into understandable software behavior.</p>
+    <section class="cards" aria-label="Interactive portfolio demos">
+      <article>
+        <h2>Shipment Review</h2>
+        <p>Adjust sample shipment weights and dimensions to compare illustrative actual, dimensional, and linear-foot exposure.</p>
+        <a class="link" href="examples/shipment-review.html">Open interactive demo</a>
+      </article>
+      <article>
+        <h2>SkidBuilder Prototype</h2>
+        <p>Change carton types and pallet constraints to compare simplified, explainable packing scenarios.</p>
+        <a class="link" href="examples/skidbuilder-demo.html">Open interactive demo</a>
+      </article>
+      <article>
+        <h2>Code & Architecture</h2>
+        <p>Review isolated JavaScript examples, automated tests, input normalization, and the conceptual system architecture.</p>
+        <a class="link" href="https://github.com/drkpoole/SHiPOS">View source repository</a>
+      </article>
+    </section>
+    <p class="note"><strong>Scope note:</strong> These are sanitized portfolio demonstrations using synthetic data and simplified logic. They are not carrier quotes, tariff calculations, validated 3D packing plans, or production freight decisions. No demo inputs are sent to a server.</p>
+  </main>
+</body>
+</html>

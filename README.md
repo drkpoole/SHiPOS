@@ -22,6 +22,8 @@ The demo lets a reviewer change synthetic shipment dimensions, actual weight, an
 
 **Important:** this is a product-design demonstration, not a carrier quote or billable-weight calculation. Its factors and sample values are illustrative and are not the production ShipperOS formula.
 
+Open [skidbuilder-demo.html](examples/skidbuilder-demo.html) for a second standalone prototype. It lets a reviewer edit carton types, quantities, dimensions, weights, stackability, and pallet limits, then compares three illustrative packing scenarios and shows a per-skid summary. Download the HTML file and open it locally; no build tools, dependencies, server, or network connection are required. Its packing method is a deliberately simplified, explainable heuristic—not a validated 3D packing solver or carrier-ready pallet plan.
+
 ## Public code examples
 
 - [economic-weight.js](examples/economic-weight.js) — a simplified example that selects the largest of several weight drivers and reports ties.
